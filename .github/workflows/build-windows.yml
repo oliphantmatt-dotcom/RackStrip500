@@ -15,20 +15,16 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Setup MSVC
+      - name: Setup MSVC Environment
         uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Setup Ninja
-        uses: ashley-tauer/setup-ninja@master
-
       - name: Configure CMake
+        shell: cmd
         run: |
-          cmake -B build -G "Ninja" `
-            -DCMAKE_BUILD_TYPE=Release `
-            -DJUCE_BUILD_EXTRAS=OFF `
-            -DJUCE_BUILD_EXAMPLES=OFF
+          cmake -B build -G "Ninja" -DCMAKE_BUILD_TYPE=Release -DJUCE_BUILD_EXTRAS=OFF -DJUCE_BUILD_EXAMPLES=OFF
 
       - name: Build VST3 & Standalone Release
+        shell: cmd
         run: |
           cmake --build build --config Release
 
